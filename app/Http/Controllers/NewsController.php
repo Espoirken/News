@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use Session;
 use App\News;
 use App\Category;
@@ -13,6 +14,14 @@ class NewsController extends Controller
     {
         $this->middleware('auth');
     }
+=======
+use App\News;
+use App\Category;
+use Illuminate\Http\Request;
+
+class NewsController extends Controller
+{
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     /**
      * Display a listing of the resource.
      *
@@ -21,12 +30,16 @@ class NewsController extends Controller
     public function index()
     {
         $titles = News::all();
+<<<<<<< HEAD
         $categories = Category::all();
         if ($titles->count() == 0) {
             toastr()->error('Create a book first!');
             return redirect('/news/create');
         }
         return view('news.index')->with('titles', $titles)->with('categories', $categories);
+=======
+        return view('news.index')->with('titles', $titles);
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -49,6 +62,7 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+<<<<<<< HEAD
             'title' => 'required|unique:news',
             'category_id' => 'required',
             'content' => 'required|unique:news',
@@ -70,6 +84,18 @@ class NewsController extends Controller
             toastr()->success('News created successfully!');
             return redirect('/news');
         }
+=======
+            'title' => 'required',
+            'category_id' => 'required',
+            'content' => 'required',
+        ]);
+        $news = new News;
+        $news->title = $request->title;
+        $news->category_id = $request->category_id;
+        $news->content = $request->content;
+        $news->save();
+        return redirect('/news');
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -109,14 +135,18 @@ class NewsController extends Controller
             'title' => 'required',
             'category_id' => 'required',
             'content' => 'required',
+<<<<<<< HEAD
             'published_from' => 'required',
             'published_to' => 'required',
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
         ]);
 
         $news = News::find($id);
         $news->title = $request->title;
         $news->category_id = $request->category_id;
         $news->content = $request->content;
+<<<<<<< HEAD
         $news->published_from = $request->published_from;
         $news->published_to = $request->published_to;
         $news->save();
@@ -127,6 +157,10 @@ class NewsController extends Controller
             toastr()->success('News was updated successfully!');
             return redirect('/news');
         }
+=======
+        $news->save();
+        return redirect('/news');
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -137,6 +171,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
+<<<<<<< HEAD
         $news = News::findOrFail($id);
         $news->delete();
         if (!$news->delete()) {
@@ -178,5 +213,23 @@ class NewsController extends Controller
 
 
         return view('news.partials.search')->with('searches', $searches);
+=======
+        $news = News::find($id);
+        $news->delete();
+        return redirect('/news');
+    }
+
+    public function date()
+    {
+        return view('news.partials.dates');
+    }
+
+    public function result(Request $request)
+    {
+        $from = $request->from;
+        $to = $request->to;
+        $results = News::whereBetween('created_at', [$from, $to])->get()->all();
+        return view('news.partials.results')->with('results', $results);
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 }

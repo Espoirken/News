@@ -20,7 +20,11 @@
                 <tr>
                     <td>{{$category->category_name}}</td>
                     <td><a href="{{ route('categories.edit', $category->id)}}" class="btn-sm btn-primary">Edit</a></td>
+<<<<<<< HEAD
                     <td><a href="{{ route('categories.delete', $category->id)}}" onclick="return confirm('Are you sure? This will delete all news under this category.')" class="btn-sm btn-danger">Delete</a></td>
+=======
+                    <td><a href="{{ route('categories.delete', $category->id)}}" class="btn-sm btn-danger">Delete</a></td>
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
                 </tr>
                 @endforeach
                 @else
@@ -32,7 +36,10 @@
         </table>
       </div>
     </div>
+<<<<<<< HEAD
     @include('../../inc.messages')
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
 </div>
 
 @endsection

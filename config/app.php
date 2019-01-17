@@ -174,8 +174,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+<<<<<<< HEAD
         Yoeunes\Toastr\ToastrServiceProvider::class,
         
+=======
+
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     ],
 
     /*

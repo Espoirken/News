@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="col-lg-8 offset-lg-2">
+<<<<<<< HEAD
     @include('../inc.messages')
     @include('../inc.errormessage')
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
     <div class="card text-left">
         <div class="card-body">
         <h4 class="card-title">Create a news</h4>
@@ -26,6 +29,7 @@
                         <label for="content">Content</label>
                         <textarea class="form-control" id="content" name="content" rows="3"></textarea>
                     </div>
+<<<<<<< HEAD
                     <div class="form-group">
                         <label for="published_from">From</label>
                         <input type="date" class="form-control" id="published_from" name="published_from">
@@ -34,6 +38,8 @@
                         <label for="published_to">To</label>
                         <input type="date" class="form-control" id="published_to" name="published_to">
                     </div>
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
                     </fieldset>
                     <button type="submit" class="btn btn-success">Create</button>
                 </fieldset>

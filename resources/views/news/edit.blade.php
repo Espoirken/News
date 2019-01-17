@@ -26,6 +26,7 @@
                         <label for="content">Content</label>
                         <textarea class="form-control" id="content" name="content" rows="3">{{$title->content}}</textarea>
                     </div>
+<<<<<<< HEAD
                     <div class="form-group">
                         <label for="published_from">From</label>
                         <input type="date" class="form-control" id="published_from" name="published_from" value="{{$title->from}}">
@@ -34,12 +35,17 @@
                         <label for="published_to">To</label>
                         <input type="date" class="form-control" id="published_to" name="published_to" value="{{$title->to}}">
                     </div>
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
                     </fieldset>
                     <button type="submit" class="btn btn-success">Update</button>
                 </fieldset>
             </form>
         </div>
     </div>
+<<<<<<< HEAD
     @include('../../inc.errormessage')
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
 </div>
 @endsection

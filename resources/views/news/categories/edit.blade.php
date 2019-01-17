@@ -4,7 +4,11 @@
 <div class="col-lg-8 offset-lg-2">
     <div class="card text-left">
         <div class="card-body">
+<<<<<<< HEAD
         <h4 class="card-title">Edit category</h4>
+=======
+        <h4 class="card-title">Create a new category</h4>
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
             <form action="{{ route('categories.update', $category->id)}}" method="POST">
                 {{ csrf_field() }}
                 @method('PATCH')
@@ -19,7 +23,10 @@
             </form>
         </div>
     </div>
+<<<<<<< HEAD
     @include('../../inc.messages')
     @include('../../inc.errormessage')
+=======
+>>>>>>> 5a773785949cc9482452adef7156e70b83305850
 </div>
 @endsection
