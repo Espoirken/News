@@ -10,24 +10,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-<<<<<<< HEAD
     @jquery
     <script src="{{ asset('js/app.js') }}" defer></script>
     @toastr_js
-=======
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<<<<<<< HEAD
     @toastr_css
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
 </head>
 <body>
     <div id="app">
@@ -45,41 +37,29 @@
                     
 
                     <!-- Middle Of Navbar -->
-<<<<<<< HEAD
                     @if (Auth::check())
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{route('news.index')}}">Home</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">News</a>
                             <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
                                 <a class="dropdown-item" href="{{ route('news.index')}}">List of news</a>
                                 <a class="dropdown-item" href="{{ route('news.create')}}">Create news</a>
-<<<<<<< HEAD
-
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
+                                <a class="dropdown-item" href="{{ route('newsletter')}}">Newsletter</a>
+                                <a class="dropdown-item" href="{{ route('send.mail')}}">Mail</a>
                             </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('categories.index')}}">Categories</a>
                         </li>
                         <li class="nav-item">
-<<<<<<< HEAD
                         </li>
                     </ul>
                     @else
                     
                     @endif
-=======
-                            <a class="nav-link" href="{{route('news.dates')}}">Dates</a>
-                        </li>
-                    </ul>
-
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -124,9 +104,6 @@
             </div>
         </main>
     </div>
-<<<<<<< HEAD
     @toastr_render
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
 </body>
 </html>

@@ -17,12 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-<<<<<<< HEAD
 
 Route::group(['middleware' => ['web']], function () {
     
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('news', 'NewsController');
@@ -47,7 +44,6 @@ Route::any('/dates', [
 Route::any('/news/results', [
     'uses' => 'NewsController@result',
     'as' => 'news.results',
-<<<<<<< HEAD
 ]);
 
 Route::any('/search/news', [
@@ -56,6 +52,27 @@ Route::any('/search/news', [
 ]);
 
 });
-=======
+
+Route::get('/newsletter', [
+    'uses' => 'NewsletterController@create',
+    'as' => 'newsletter',
 ]);
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
+
+Route::post('/newsletter', [
+    'uses' => 'NewsletterController@store',
+    'as' => 'newsletter.store',
+]);
+
+Route::get('/send/email', [
+    'uses' => 'HomeController@mail',
+    'as' => 'send.mail',
+]);
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
-use Session;
+use Carbon\Carbon;
 use App\News;
 use App\Category;
 use Illuminate\Http\Request;
@@ -14,14 +13,6 @@ class NewsController extends Controller
     {
         $this->middleware('auth');
     }
-=======
-use App\News;
-use App\Category;
-use Illuminate\Http\Request;
-
-class NewsController extends Controller
-{
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     /**
      * Display a listing of the resource.
      *
@@ -30,16 +21,19 @@ class NewsController extends Controller
     public function index()
     {
         $titles = News::all();
-<<<<<<< HEAD
         $categories = Category::all();
+        if ($categories->count() == 0) {
+            toastr()->error('Create a category first!');
+            return redirect('/categories/create');
+        } else {
         if ($titles->count() == 0) {
-            toastr()->error('Create a book first!');
+            toastr()->error('Create a news first!');
             return redirect('/news/create');
         }
+    }
+
+        
         return view('news.index')->with('titles', $titles)->with('categories', $categories);
-=======
-        return view('news.index')->with('titles', $titles);
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -62,13 +56,30 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-<<<<<<< HEAD
+            'image' => 'required|image',
             'title' => 'required|unique:news',
             'category_id' => 'required',
             'content' => 'required|unique:news',
+            'published_from' => 'required',
+            'published_to' => 'required',
         ]);
-        $news = new News;
+
+        // if ($request->hasFile('image')) {
+        //Get filename with extension
+        $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //Get filename
+        $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //Get extension
+        $extension = $request->file('image')->getClientOriginalExtension();
+        //Create new filename
+        $filenameToStore = $filename.'_'.time().'.'.$extension;
+        //Upload image
+        $path = $request->file('image')->storeAs('public/image/'.$request->input('image'), $filenameToStore);
+        //Upload Photo
+        // dd($filenameToStore);
         $user = Auth::user();
+        $news = new News;
+        $news->image = $filenameToStore;
         $news->title = $request->title;
         $news->category_id = $request->category_id;
         $news->content = $request->content;
@@ -76,26 +87,23 @@ class NewsController extends Controller
         $news->published_to = $request->published_to;
         $news->created_by = $user->name;
         $news->updated_by = $user->name;
-        $news->save();
-        if(!$news->save()) {
-            toastr()->error('News was not saved!');
+
+        $from = $request->published_from;
+        $to = $request->published_to;
+        if ($from >= $to) {
+            toastr()->error('Invalid Date!');
             return redirect('/news/create');
         } else {
-            toastr()->success('News created successfully!');
-            return redirect('/news');
+            $news->save();
+            if (!$news->save()) {
+                toastr()->error('News was not saved!');
+                return redirect('/news/create');
+            } else {
+                toastr()->success('News created successfully!');
+                return redirect('/news');
+            }
         }
-=======
-            'title' => 'required',
-            'category_id' => 'required',
-            'content' => 'required',
-        ]);
-        $news = new News;
-        $news->title = $request->title;
-        $news->category_id = $request->category_id;
-        $news->content = $request->content;
-        $news->save();
-        return redirect('/news');
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
+        // }
     }
 
     /**
@@ -135,18 +143,14 @@ class NewsController extends Controller
             'title' => 'required',
             'category_id' => 'required',
             'content' => 'required',
-<<<<<<< HEAD
             'published_from' => 'required',
             'published_to' => 'required',
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
         ]);
 
         $news = News::find($id);
         $news->title = $request->title;
         $news->category_id = $request->category_id;
         $news->content = $request->content;
-<<<<<<< HEAD
         $news->published_from = $request->published_from;
         $news->published_to = $request->published_to;
         $news->save();
@@ -157,10 +161,6 @@ class NewsController extends Controller
             toastr()->success('News was updated successfully!');
             return redirect('/news');
         }
-=======
-        $news->save();
-        return redirect('/news');
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -171,7 +171,6 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         $news = News::findOrFail($id);
         $news->delete();
         if (!$news->delete()) {
@@ -187,14 +186,28 @@ class NewsController extends Controller
     {
         $from = $request->published_from;
         $to = $request->published_to;
-        
+
+        //Date backend validation
+        if (empty($from)|| empty($to)) {
+            toastr()->error('Date is empty!');
+        }
+
+        //Show results
         $date = News::whereBetween('published_from', [$from, $to]);
         $results = $date->get()->all();
-        // dd($from > $to);
-        if($from < $to) {
-            return view('news.partials.results')->with('results', $results);
+        
+        //Avoid date backwards
+        if($from <= $to) {
+            if (empty($results)) {
+                toastr()->error('No news found!');
+                return redirect('/news');
+            } else {
+                toastr()->success('List found!');
+                return view('news.partials.results')->with('results', $results); 
+            }
         } else {
-            return redirect('/news')->with('error','Invalid date!');
+            toastr()->error('Invalid Date!');
+            return redirect('/news');
         }
     }
 
@@ -213,23 +226,5 @@ class NewsController extends Controller
 
 
         return view('news.partials.search')->with('searches', $searches);
-=======
-        $news = News::find($id);
-        $news->delete();
-        return redirect('/news');
-    }
-
-    public function date()
-    {
-        return view('news.partials.dates');
-    }
-
-    public function result(Request $request)
-    {
-        $from = $request->from;
-        $to = $request->to;
-        $results = News::whereBetween('created_at', [$from, $to])->get()->all();
-        return view('news.partials.results')->with('results', $results);
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 }

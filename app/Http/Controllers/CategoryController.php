@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-<<<<<<< HEAD
     public function __construct()
     {
         $this->middleware('auth');
     }
-=======
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         $categories = Category::orderBy('category_name', 'asc')->get();
-=======
-        $categories = Category::all();
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
         return view('news.categories.index')->with('categories', $categories);
     }
 
@@ -48,25 +41,17 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-<<<<<<< HEAD
             'category_name' => 'required|unique:categories',
-=======
-            'category_name' => 'required',
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
         ]);
         $category = new Category;
         $category->category_name = $request->category_name;
         $category->save();
-<<<<<<< HEAD
 
         if(!$category->save()) {
             return redirect('/categories/create')->with('error','Categories was not saved!');
         } else {
             return redirect('/categories');
         }
-=======
-        return redirect('/categories');
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -108,16 +93,12 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->category_name = $request->category_name;
         $category->save();
-<<<<<<< HEAD
 
         if(!$category->save()) {
             return redirect('/categories/' . $id . '/edit')->with('error','Categories was not updated!');
         } else {
         return redirect('/categories');
         }
-=======
-        return redirect('/categories');
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 
     /**
@@ -128,7 +109,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-<<<<<<< HEAD
         $categories = Category::find($id);
         foreach ($categories->news as $category) {
             $category->delete();
@@ -140,10 +120,5 @@ class CategoryController extends Controller
             return redirect('/categories');
         }
         
-=======
-        $category = Category::find($id);
-        $category->delete();
-        return redirect('/categories');
->>>>>>> 5a773785949cc9482452adef7156e70b83305850
     }
 }
